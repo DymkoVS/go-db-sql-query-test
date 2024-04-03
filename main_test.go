@@ -50,10 +50,15 @@ func Test_InsertClient_ThenSelectAndCheck(t *testing.T) {
 		Email:    "mail@mail.com",
 	}
 	// напиши тест здесь
-	id, _ := insertClient(db, cl)
+	id, err := insertClient(db, cl)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, id)
+	cl.ID = int(id)
+
 	got, err := selectClient(db, id)
-	require.Equal(t, sql.ErrNoRows, err)
-	require.Empty(t, got)
+	require.NoError(t, err)
+	require.Equal(t, cl.ID, got.ID)
 
 }
 
@@ -72,6 +77,11 @@ func Test_InsertClient_DeleteClient_ThenCheck(t *testing.T) {
 
 	// напиши тест здесь
 	id, err := insertClient(db, cl)
+
+	require.NoError(t, err)
+	require.NotEmpty(t, id)
+	cl.ID = int(id)
+
 	err = deleteClient(db, id)
 	require.NoError(t, err)
 
