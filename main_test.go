@@ -4,7 +4,7 @@ import (
 	"database/sql"
 	"testing"
 
-	"github.com/stretchr/testify/assert" // from Practicum
+	"github.com/stretchr/testify/assert" // I forgot about assert
 	"github.com/stretchr/testify/require"
 
 	_ "modernc.org/sqlite"
@@ -21,7 +21,12 @@ func Test_SelectClient_WhenOk(t *testing.T) {
 	// напиши тест здесь
 	got, err := selectClient(db, clientID)
 	require.NoError(t, err)
-	// мой вариант	require.Equal(t, got.ID, clientID)
+	// мой вариант
+	// require.Equal(t, got.ID, clientID)
+	//	require.NotEmpty(t, got.FIO)
+	//	require.NotEmpty(t, got.Login)
+	//	require.NotEmpty(t, got.Birthday)
+	//	require.NotEmpty(t, got.Email)
 	// из практикума
 	assert.Equal(t, clientID, got.ID)
 	assert.NotEmpty(t, got.FIO)
@@ -41,8 +46,12 @@ func Test_SelectClient_WhenNoClient(t *testing.T) {
 	got, err := selectClient(db, clientID)
 
 	require.Equal(t, sql.ErrNoRows, err)
-
-	//	require.Empty(t, got)
+	// these are my lines
+	//	require.Empty(t, got.ID)
+	//	require.Empty(t, got.FIO)
+	//	require.Empty(t, got.Login)
+	//	require.Empty(t, got.Birthday)
+	//	require.Empty(t, got.Email)
 	//
 	// from Practicum
 	assert.Empty(t, got.ID)
