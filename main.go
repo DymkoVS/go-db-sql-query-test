@@ -51,3 +51,12 @@ func deleteClient(db *sql.DB, id int) error {
 
 	return err
 }
+
+/* func selectLastClient(db *sql.DB) (int, error) {
+	row, err := db.Exec("SELECT * FROM clients WHERE id=(SELECT max(id) FROM clients")
+	if err != nil {
+		return 0, err
+	}
+	fmt.Println(row)
+	return row.id, err
+} */
